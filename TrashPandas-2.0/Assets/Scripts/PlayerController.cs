@@ -29,7 +29,27 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
         bool jump = Input.GetButton("Jump");
 
-        //rb.AddRelativeForce(rb. * moveSpeed * Time.deltaTime);
+        rb.AddForce(new Vector3(horizontal * moveSpeed * Time.deltaTime, 0, vertical * moveSpeed * Time.deltaTime));
+
+//////////////////////////////////////////////
+// testing out player always facing velocity:
+        // transform.forward = new Vector3(rb.velocity.x, transform.forward.y, rb.velocity.z);
+        //var forward = Camera.main.transform.forward;
+        //var right = Camera.main.transform.right;
+
+        //project forward and right vectors on the horizontal plane (y = 0)
+        //forward.y = 0f;
+        //right.y = 0f;
+        //forward.Normalize();
+        //right.Normalize();
+
+        //this is the direction in the world space we want to move:
+        //var desiredMoveDirection = forward * vertical + right * horizontal;
+
+        //now we can apply the movement:
+        //transform.Translate(desiredMoveDirection * moveSpeed * Time.deltaTime);
+/////////////////////////////////////////////
+
 
         if (rb.velocity != Vector3.zero)
         {

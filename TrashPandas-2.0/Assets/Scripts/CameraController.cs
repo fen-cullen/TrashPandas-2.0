@@ -8,6 +8,8 @@ public class CameraController : MonoBehaviour
 
     public Vector3 offset;
 
+    public float turnSpeed;
+
     void Start()
     {
 
@@ -30,6 +32,6 @@ public class CameraController : MonoBehaviour
 
     void SetCameraRotation()
     {
-
+        transform.RotateAround(player.transform.position, Vector3.up, Input.GetAxis("Mouse X") * turnSpeed);
     }
 }
