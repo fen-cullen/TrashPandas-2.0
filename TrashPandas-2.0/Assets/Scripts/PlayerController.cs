@@ -32,7 +32,9 @@ public class PlayerController : MonoBehaviour
 
         Vector3 camIdealForward = Vector3.Cross(Camera.main.transform.right, Vector3.up);
 
-        var input = transform.right * horiz + camIdealForward * vert;
+        Vector3 camIdealRight = Vector3.Cross(Camera.main.transform.forward, Vector3.down);
+
+        var input = camIdealRight * horiz + camIdealForward * vert;
 
         input *= moveSpeed;
 
