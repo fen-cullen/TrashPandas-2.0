@@ -4,76 +4,59 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody rb;
-    public float moveSpeed = 500;
-    public float rotSpeed = 100;
-    public float jump = 500;
-    private bool grounded = false;
+    public float moveSpeed = 10;
 
-    public float playerMass = 1;
-    public float gravity = 1;
-    public float frictionCo = 1;
-    public float slopeAngle = 0;
+    public float gravity = 9.81f;
 
+    public float jumpheight = 100;
+
+    public float airControl = 10;
+
+    Vector3 moveDir;
+
+    CharacterController cc;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        cc = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        bool jump = Input.GetButton("Jump");
+        float horiz = Input.GetAxis("Horizontal");
+        float vert = Input.GetAxis("Vertical");
 
-        rb.AddForce(new Vector3(horizontal * moveSpeed * Time.deltaTime, 0, vertical * moveSpeed * Time.deltaTime));
+        //var input = new Vector3(horiz, 0, vert);
 
-//////////////////////////////////////////////
-// testing out player always facing velocity:
-        // transform.forward = new Vector3(rb.velocity.x, transform.forward.y, rb.velocity.z);
-        //var forward = Camera.main.transform.forward;
-        //var right = Camera.main.transform.right;
+        var input = transform.right * horiz + transform.forward * vert;
 
-        //project forward and right vectors on the horizontal plane (y = 0)
-        //forward.y = 0f;
-        //right.y = 0f;
-        //forward.Normalize();
-        //right.Normalize();
+        input *= moveSpeed;
 
-        //this is the direction in the world space we want to move:
-        //var desiredMoveDirection = forward * vertical + right * horizontal;
-
-        //now we can apply the movement:
-        //transform.Translate(desiredMoveDirection * moveSpeed * Time.deltaTime);
-/////////////////////////////////////////////
-
-
-        if (rb.velocity != Vector3.zero)
+        if (cc.isGrounded)
         {
+            moveDir = input;
 
+            if (Input.GetButton("Jump"))
+            {
+                moveDir.y = Mathf.Sqrt(2 * gravity * jumpheight);
+            }
+            else
+            {
+                moveDir.y = 0f;
+            }
         }
-    }
-
-    private float calcFrictionForce()
-    {
-        return frictionCo * calcNormalForce();
-    }
-
-    private float calcNormalForce()
-    {
-        return playerMass * gravity * Mathf.Cos(slopeAngle);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("Collision");
-        if (collision.gameObject.tag.Equals("Floor"))
+        else
         {
-            Debug.Log("Collision with floor");
-            grounded = true;
+            input.y = moveDir.y;
+
+            moveDir = Vector3.Lerp(moveDir, input, airControl * Time.deltaTime);
         }
+
+
+        moveDir.y -= gravity * Time.deltaTime;
+
+        cc.Move(moveDir * Time.deltaTime);
     }
 }
