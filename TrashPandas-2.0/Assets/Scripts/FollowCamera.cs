@@ -12,7 +12,7 @@ public class FollowCamera : MonoBehaviour
     public float yMinLimit = -20f;
     public float yMaxLimit = 80f;
 
-    public float distanceMin = .5f;
+    public float distanceMin = 10f;
     public float distanceMax = 15f;
 
     private Rigidbody rigidbody;
