@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
     public float airControl = 10;
 
+    public float rotateSpeed = 1000;
+
     Vector3 moveDir;
 
     CharacterController cc;
@@ -62,5 +64,11 @@ public class PlayerController : MonoBehaviour
         moveDir.y -= gravity * Time.deltaTime;
 
         cc.Move(moveDir * Time.deltaTime);
+
+        Vector3 lookDir = cc.transform.position + new Vector3(moveDir.x, 0, moveDir.z);
+
+        //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDir), Time.deltaTime * rotateSpeed);
+
+        cc.transform.LookAt(cc.transform.position + new Vector3(moveDir.x, 0, moveDir.z));
     }
 }
