@@ -4,34 +4,36 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public GameObject player;
+    public Transform playerBody;
 
-    public Vector3 offset;
+    public float mouseSensitivity = 200f;
+    float xRotation = 0;
 
-    public float turnSpeed;
-
+    // Start is called before the first frame update
     void Start()
     {
+        if (playerBody == null)
+        {
+            playerBody = transform.parent.transform;
+        }
 
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void LateUpdate()
+    // Update is called once per frame
+    void Update()
     {
-        SetCameraOffset();
+        float mx = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float my = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        SetCameraRotation();
+        //rotate the player left and right so that you can continue to move forward
+        playerBody.Rotate(Vector3.up * mx);
 
-    }
+        xRotation -= my;
+        xRotation = Mathf.Clamp(xRotation, -90.0f, 90.0f);
 
-    void SetCameraOffset()
-    {
-        Vector3 cross = Vector3.Cross(Vector3.up, player.transform.right).normalized * offset.z;
-        transform.position = player.transform.position + cross + new Vector3(0, offset.y, 0);
-        transform.LookAt(player.transform.position + new Vector3(0, offset.y, 0));
-    }
-
-    void SetCameraRotation()
-    {
-        transform.RotateAround(player.transform.position, Vector3.up, Input.GetAxis("Mouse X") * turnSpeed);
+        //rotate the camera up and down like a head
+        transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
     }
 }
