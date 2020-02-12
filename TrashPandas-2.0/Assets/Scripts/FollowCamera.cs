@@ -53,8 +53,10 @@ public class FollowCamera : MonoBehaviour
 
             distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel") * 5, distanceMin, distanceMax);
 
+            Vector3 expected = target.position + rotation * new Vector3(0, 0, -distanceMax);
+
             RaycastHit hit;
-            if (Physics.Linecast(target.position, transform.position, out hit))
+            if (Physics.Linecast(target.position, expected, out hit))
             {
                 distance -= hit.distance;
             }
