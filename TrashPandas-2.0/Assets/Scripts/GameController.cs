@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
     private int remaining;
     private GameObject[] pickups;
     public Text scoreDisplay;
+    public Text winMessage;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,5 +28,9 @@ public class GameController : MonoBehaviour
     {
         //--this.remaining;
         ++this.score;
+
+        if (score == remaining) {
+            winMessage.gameObject.SetActive(true);
+        }
     }
 }
