@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
 
     public float rotateSpeed = 1000;
 
+    public int airJumps = 1;
+
     Vector3 moveDir;
 
     CharacterController cc;
@@ -44,9 +46,11 @@ public class PlayerController : MonoBehaviour
 
         if (cc.isGrounded)
         {
+            airJumps = 1;
+
             moveDir = input;
 
-            if (Input.GetButton("Jump"))
+            if (Input.GetButtonDown("Jump"))
             {
                 moveDir.y = Mathf.Sqrt(2 * gravity * jumpheight);
             }
@@ -57,8 +61,13 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            input.y = moveDir.y;
+            if (Input.GetButtonDown("Jump") && airJumps > 0)
+            {
+                moveDir.y = Mathf.Sqrt(2 * gravity * jumpheight);
+                airJumps--;
+            }
 
+            input.y = moveDir.y;
             moveDir = Vector3.Lerp(moveDir, input, airControl * Time.deltaTime);
         }
 
