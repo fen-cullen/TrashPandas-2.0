@@ -112,7 +112,8 @@ MonoBehaviour:
   gravity: 50
   jumpheight: 4
   airControl: 10
-  rotateSpeed: 1000
+  rotateSpeed: 10
+  airJumps: 1
 --- !u!143 &2130388755990151122
 CharacterController:
   m_ObjectHideFlags: 0
