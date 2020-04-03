@@ -16,6 +16,7 @@ public class RaccoonEffectPlayer : MonoBehaviour
 
     public void PlayJumpSound()
     {
+        print("playing jump sound");
         AudioSource sound = jumpSounds[Random.Range(0, jumpSounds.Length)];
         sound.PlayOneShot(sound.clip);
     }
@@ -28,6 +29,7 @@ public class RaccoonEffectPlayer : MonoBehaviour
 
     public void StartWalkingSound()
     {
+        print("starting walk sound");
         playWalking = true;
         StartCoroutine("ContinueWalkingSound");
 
@@ -46,11 +48,13 @@ public class RaccoonEffectPlayer : MonoBehaviour
 
     public void StopWalkingSound()
     {
+        print("stopping walk sound");
         playWalking = false;
     }
 
     public void PlayEatSound()
     {
+        print("play eat sound");
         AudioSource sound = eatSounds[Random.Range(0, eatSounds.Length)];
         sound.PlayOneShot(sound.clip);
     }
