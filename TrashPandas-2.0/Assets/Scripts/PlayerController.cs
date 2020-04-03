@@ -22,10 +22,13 @@ public class PlayerController : MonoBehaviour
 
     CharacterController cc;
 
+    RaccoonEffectPlayer audioPlayer;
+
     // Start is called before the first frame update
     void Start()
     {
         cc = GetComponent<CharacterController>();
+        audioPlayer = GetComponent<RaccoonEffectPlayer>();
     }
 
     // Update is called once per frame
@@ -53,6 +56,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Jump"))
             {
                 moveDir.y = Mathf.Sqrt(2 * gravity * jumpheight);
+                audioPlayer.PlayJumpSound();
             }
             else
             {
@@ -65,6 +69,7 @@ public class PlayerController : MonoBehaviour
             {
                 moveDir.y = Mathf.Sqrt(2 * gravity * jumpheight);
                 airJumps--;
+                audioPlayer.PlayJumpSound();
             }
 
             input.y = moveDir.y;
