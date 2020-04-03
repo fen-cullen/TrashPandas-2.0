@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     private GameObject[] pickups;
     public Text scoreDisplay;
     public Text winMessage;
+    public HealthController playerHealth;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,5 +33,10 @@ public class GameController : MonoBehaviour
         if (score == remaining) {
             winMessage.gameObject.SetActive(true);
         }
+    }
+
+    public void OnHealthPickup()
+    {
+        this.playerHealth.Heal(1);
     }
 }
