@@ -728,26 +728,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1215591908 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1046869630431942, guid: c717f817a496cf247a92b830b355a407,
-    type: 3}
-  m_PrefabInstance: {fileID: 1495139457}
-  m_PrefabAsset: {fileID: 0}
---- !u!136 &1215591912
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1215591908}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.3
-  m_Height: 0.7
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.4, z: 0.05}
 --- !u!1001 &1480476776
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -839,16 +819,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -9156886525498817422, guid: c717f817a496cf247a92b830b355a407,
-        type: 3}
-      propertyPath: attackDistance
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: -9156886525498817422, guid: c717f817a496cf247a92b830b355a407,
-        type: 3}
-      propertyPath: chaseDistance
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 1046869630431942, guid: c717f817a496cf247a92b830b355a407, type: 3}
       propertyPath: m_Name
       value: FantasyBee
@@ -897,23 +867,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4549644435828676, guid: c717f817a496cf247a92b830b355a407, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4549644435828676, guid: c717f817a496cf247a92b830b355a407, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4549644435828676, guid: c717f817a496cf247a92b830b355a407, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 95333843763016992, guid: c717f817a496cf247a92b830b355a407,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 65707819719066b4ab9d0d26dee12a5f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c717f817a496cf247a92b830b355a407, type: 3}
 --- !u!114 &1709918468
@@ -929,11 +882,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
+  dashSpeed: 50
+  dashDist: 50
   gravity: 9.81
   jumpheight: 100
   airControl: 10
   rotateSpeed: 1000
   airJumps: 1
+  dashState: 0
+  dashTimer: 0
+  dashCooldown: 20
 --- !u!114 &1709918469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1339,11 +1297,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
+  dashSpeed: 50
+  dashDist: 50
   gravity: 50
   jumpheight: 4
   airControl: 10
   rotateSpeed: 10
   airJumps: 1
+  dashState: 0
+  dashTimer: 0
+  dashCooldown: 20
 --- !u!143 &2130388755635723319
 CharacterController:
   m_ObjectHideFlags: 0

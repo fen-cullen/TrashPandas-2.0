@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 4549644435828676}
   - component: {fileID: 95333843763016992}
   - component: {fileID: -9156886525498817422}
+  - component: {fileID: 1215591912}
   m_Layer: 0
   m_Name: FantasyBee
   m_TagString: Untagged
@@ -57,7 +58,7 @@ Transform:
   m_GameObject: {fileID: 1046869630431942}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4036020211043170}
   - {fileID: 4983713028428976}
@@ -74,7 +75,7 @@ Animator:
   m_GameObject: {fileID: 1046869630431942}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 4371e4ea3efaabd419cee1125d54c6e0, type: 3}
-  m_Controller: {fileID: 9100000, guid: f0c1b5e29b30e454cbcd731a8f65d9a4, type: 2}
+  m_Controller: {fileID: 9100000, guid: 65707819719066b4ab9d0d26dee12a5f, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -97,10 +98,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   currentState: 0
-  attackDistance: 2
-  chaseDistance: 6
+  attackDistance: 1.5
+  chaseDistance: 7
   moveSpeed: 5
   anim: {fileID: 0}
+  hitRate: 2
+  ellapsedTime: 0
+--- !u!136 &1215591912
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1046869630431942}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 0.7
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.4, z: 0.05}
 --- !u!1 &1123151019833848
 GameObject:
   m_ObjectHideFlags: 0
