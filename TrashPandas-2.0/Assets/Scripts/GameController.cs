@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -25,6 +26,19 @@ public class GameController : MonoBehaviour
         scoreDisplay.text = "Collected: " + score + " / " + remaining;
     }
 
+    public void TakeDamage(int amount) {
+        playerHealth.TakeDamage(amount);
+    }
+
+    public void LoadNextLevel() {
+        if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCount - 1) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else {
+            Debug.Log("No more new levels, u win by default");
+        }
+    }
+
     public void OnPickupCollect ()
     {
         //--this.remaining;
@@ -32,6 +46,7 @@ public class GameController : MonoBehaviour
 
         if (score == remaining) {
             winMessage.gameObject.SetActive(true);
+            Invoke("LoadNextLevel", 5f);
         }
     }
 

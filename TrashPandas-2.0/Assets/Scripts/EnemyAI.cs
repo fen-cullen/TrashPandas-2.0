@@ -114,7 +114,7 @@ public class EnemyAI : MonoBehaviour
             ellapsedTime = 0;
             if (distToPlayer <= attackDistance)
             {
-                player.GetComponent<HealthController>().TakeDamage(1);
+                GameObject.Find("GameManager").GetComponent<GameController>().TakeDamage(1);
             }
         }
 
