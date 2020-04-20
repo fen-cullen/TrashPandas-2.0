@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     CharacterController cc;
 
     RaccoonEffectPlayer audioPlayer;
+    Animator animator;
 
     bool airdash = false;
 
@@ -46,6 +47,7 @@ public class PlayerController : MonoBehaviour
     {
         cc = GetComponent<CharacterController>();
         audioPlayer = GetComponent<RaccoonEffectPlayer>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -72,7 +74,9 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetButtonDown("Jump"))
             {
+                animator.SetTrigger("jumped");
                 moveDir.y = Mathf.Sqrt(2 * gravity * jumpheight);
+                audioPlayer.PlayJumpSound();
                 
             }
             else
@@ -84,6 +88,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump") && airJumps > 0)
             {
+                animator.SetTrigger("jumped");
                 moveDir.y = Mathf.Sqrt(2 * gravity * jumpheight);
                 airJumps--;
                 audioPlayer.PlayJumpSound();
@@ -106,6 +111,9 @@ public class PlayerController : MonoBehaviour
 
         //Handles the dash mechanic
         DashForwards(moveDir);
+
+        animator.SetFloat("groundSpeed", new Vector2(moveDir.x, moveDir.z).magnitude);
+        animator.SetBool("grounded", cc.isGrounded);
     }
 
     private void DashForwards(Vector3 moveDir)

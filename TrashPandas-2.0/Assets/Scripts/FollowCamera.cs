@@ -55,11 +55,11 @@ public class FollowCamera : MonoBehaviour
 
             Vector3 expected = target.position + rotation * new Vector3(0, 0, -distanceMax);
 
-            RaycastHit hit;
+            /*RaycastHit hit;
             if (Physics.Linecast(target.position, expected, out hit))
             {
                 distance -= hit.distance;
-            }
+            }*/
             Vector3 negDistance = new Vector3(0.0f, 0.0f, -distance);
             Vector3 position = rotation * negDistance + target.position;
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HealthController : MonoBehaviour
 {
@@ -14,6 +15,11 @@ public class HealthController : MonoBehaviour
     public Sprite h4;
 
     public int numHearts = 4;
+
+    public AudioSource hurtSoundEffect;
+    public GameObject playerDeathObject;
+    public GameObject deathMessage;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,26 +28,16 @@ public class HealthController : MonoBehaviour
         this.UpdateHearts();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        /*
-        if(Time.time - this.tempTimer > 1)
-        {
-            this.TakeDamage(1);
-            this.tempTimer = Time.time;
-        }
-        */
-    }
-
     public void TakeDamage(int amount)
     {
         if (this.numHearts > 0)
         {
             this.numHearts -= amount;
-            if(this.numHearts < 0)
+            hurtSoundEffect.Play();
+
+            if(this.numHearts <= 0)
             {
-                this.numHearts = 0;
+                Death();
             }
             this.UpdateHearts();
         }
@@ -85,5 +81,19 @@ public class HealthController : MonoBehaviour
                 temp.sprite = this.h4;
                 return;
         }
+    }
+
+    public void Death() {
+        deathMessage.SetActive(true);
+
+        GameObject p = GameObject.Find("Player");
+        Instantiate(playerDeathObject, p.transform.position, p.transform.rotation);
+        Destroy(GameObject.FindGameObjectWithTag("Player"));
+
+        Invoke("ReloadScene", 5f);
+    }
+
+    public void ReloadScene() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

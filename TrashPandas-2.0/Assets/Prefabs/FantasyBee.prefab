@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &365973097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 365973098}
+  m_Layer: 0
+  m_Name: Eyes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &365973098
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 365973097}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.519, z: 0.293}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4549644435828676}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1005922351829122
 GameObject:
   m_ObjectHideFlags: 0
@@ -23,7 +53,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005922351829122}
-  m_LocalRotation: {x: 0.000000044360387, y: -0.000000007860173, z: -0.29525638, w: 0.95541805}
+  m_LocalRotation: {x: 0.000000043475175, y: -0.000000007703323, z: -0.28936455, w: 0.95721895}
   m_LocalPosition: {x: -0.08180557, y: 0.000000114440915, z: 0.000000014305114}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -43,6 +73,7 @@ GameObject:
   - component: {fileID: -9156886525498817422}
   - component: {fileID: 1215591912}
   - component: {fileID: 1871117626}
+  - component: {fileID: 6002220407253732177}
   m_Layer: 0
   m_Name: FantasyBee
   m_TagString: Untagged
@@ -63,6 +94,7 @@ Transform:
   m_Children:
   - {fileID: 4036020211043170}
   - {fileID: 4983713028428976}
+  - {fileID: 365973098}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
@@ -105,6 +137,8 @@ MonoBehaviour:
   anim: {fileID: 95333843763016992}
   hitRate: 2
   ellapsedTime: 0
+  enemyEyes: {fileID: 365973098}
+  fieldOfView: 180
 --- !u!136 &1215591912
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -139,7 +173,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 205
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 0.99399567
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -215,6 +249,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!195 &6002220407253732177
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1046869630431942}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.82
+  m_BaseOffset: 0.76
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1123151019833848
 GameObject:
   m_ObjectHideFlags: 0

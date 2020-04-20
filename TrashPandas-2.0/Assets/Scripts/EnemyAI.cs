@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -16,10 +17,15 @@ public class EnemyAI : MonoBehaviour
     //public GameObject deadVFX;
     //public bool isDead = false;
 
-    GameObject[] wanderPoints;
+    public GameObject[] wanderPoints;
     Vector3 nextDestination;
     int currentDestinationIdx = 0;
     float distToPlayer;
+
+    NavMeshAgent agent;
+
+    public Transform enemyEyes;
+    public float fieldOfView = 150f;
     //Transform deadTransform;
 
     //EnemyHealth enemyHealth;
@@ -38,8 +44,14 @@ public class EnemyAI : MonoBehaviour
     {
         //enemyHealth = GetComponent<EnemyHealth>();
         anim = GetComponent<Animator>();
-        wanderPoints = GameObject.FindGameObjectsWithTag("Wanderpoint");
+
+        if (wanderPoints == null) {
+            wanderPoints = GameObject.FindGameObjectsWithTag("Wanderpoint");
+        }
+       
         player = GameObject.FindGameObjectWithTag("Player");
+
+        agent = GetComponent<NavMeshAgent>();
         
         //health = enemyHealth.currHealth;
         currentState = FSMStates.Moving;
@@ -84,7 +96,7 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            if (distToPlayer <= chaseDistance)
+            if (distToPlayer <= chaseDistance && isPlayerInClearFOV())
             {
                 print("Chasing");
                 nextDestination = player.transform.position;
@@ -97,8 +109,12 @@ public class EnemyAI : MonoBehaviour
                     FindNextPoint();
                 }
             }
-            transform.position = Vector3.MoveTowards(transform.position, nextDestination, moveSpeed * Time.deltaTime);
+            
+            agent.stoppingDistance = 0;
+            agent.speed = 3.5f;
+
             FaceTarget(nextDestination);
+            agent.SetDestination(nextDestination);
         }
     }
 
@@ -126,6 +142,8 @@ public class EnemyAI : MonoBehaviour
 
     }
 
+    
+
     private void UpdateDeadState()
     {
         print("dead");
@@ -139,6 +157,8 @@ public class EnemyAI : MonoBehaviour
     {
         nextDestination = wanderPoints[currentDestinationIdx].transform.position;
         currentDestinationIdx = (currentDestinationIdx + 1) % wanderPoints.Length;
+
+        agent.SetDestination(nextDestination);
     }
 
     void FaceTarget(Vector3 target)
@@ -149,12 +169,35 @@ public class EnemyAI : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 5 * Time.deltaTime);
     }
 
-    private void OnDrawGizmos()
-    {
+    private void OnDrawGizmos() {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackDistance);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, chaseDistance);
+        //Gizmos.DrawWireSphere(transform.position, attackDistance);
+
+        Gizmos.color = Color.green;
+        //Gizmos.DrawWireSphere(transform.position, chaseDistance);
+
+        Vector3 frontRayPoint = enemyEyes.position + (enemyEyes.forward * chaseDistance);
+        Vector3 leftRayPoint = Quaternion.Euler(0, fieldOfView * 0.5f, 0) * frontRayPoint;
+        Vector3 rightRayPoint = Quaternion.Euler(0, -fieldOfView * 0.5f, 0) * frontRayPoint;
+
+        Debug.DrawLine(enemyEyes.position, frontRayPoint, Color.cyan);
+        Debug.DrawLine(enemyEyes.position, leftRayPoint, Color.yellow);
+        Debug.DrawLine(enemyEyes.position, rightRayPoint, Color.yellow);
+    }
+
+    bool isPlayerInClearFOV() {
+        Vector3 directionToPlayer = player.transform.position - enemyEyes.position;
+
+        if (Vector3.Angle(directionToPlayer, enemyEyes.forward) <= fieldOfView) {
+            RaycastHit hit;
+            if (Physics.Raycast(enemyEyes.position, directionToPlayer, out hit, chaseDistance)) {
+                if (hit.transform.CompareTag("Player")) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private void OnDestroy()

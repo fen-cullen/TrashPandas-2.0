@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 2130388755990151120}
   - component: {fileID: 2130388755990151123}
   - component: {fileID: 2130388755990151122}
-  - component: {fileID: 458735276}
+  - component: {fileID: 2988244889649525004}
+  - component: {fileID: 1491560995}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -47,8 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  dashSpeed: 50
-  dashDist: 50
+  dashSpeed: 1
+  dashDist: 1
   gravity: 50
   jumpheight: 4
   airControl: 10
@@ -75,7 +76,26 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &458735276
+--- !u!95 &2988244889649525004
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2130388755990151124}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4de19467ffe2a4483881461bbd3ff7a3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1491560995
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -84,7 +104,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2130388755990151124}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f141403a0326640039aaeafbed5fb391, type: 3}
+  m_Script: {fileID: 11500000, guid: 993e0dd882a850b47942b5a310f8f56d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   jumpSounds:
@@ -93,7 +113,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   landingSounds: []
-  walkingSounds: []
+  walkingSounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   eatSounds:
   - {fileID: 0}
 --- !u!1001 &8901780026449434608

@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    public static int totalTrashCollected;
     private int score;
     private int remaining;
     private GameObject[] pickups;
@@ -31,18 +32,14 @@ public class GameController : MonoBehaviour
     }
 
     public void LoadNextLevel() {
-        if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCount - 1) {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        }
-        else {
-            Debug.Log("No more new levels, u win by default");
-        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void OnPickupCollect ()
     {
         //--this.remaining;
         ++this.score;
+        ++TotalScoreKeeper.totalScore;
 
         if (score == remaining) {
             winMessage.gameObject.SetActive(true);

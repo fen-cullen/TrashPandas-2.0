@@ -406,12 +406,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 9049277232019978908}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3638e95d6f874b1f9a7a6e63137fa42, type: 3}
+  m_Script: {fileID: 11500000, guid: 5021780f4491ac049893585328a42f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
-  eatSFX: {fileID: 8300000, guid: e4cf669b09d0e4aafb3c429815dae016, type: 3}
-  pickupSFX: {fileID: 8300000, guid: 176a6f054b0eb4f2b97a9f653b285873, type: 3}
+  eatSFX: {fileID: 0}
+  pickupSFX: {fileID: 0}
   pickupParticles: {fileID: 7804512486150009415, guid: 1dc73a25ec22f49bd88e71e815cea378,
     type: 3}
 --- !u!95 &3424718515174055552
